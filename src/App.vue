@@ -4,11 +4,11 @@
 
       <!-- Left column -->
       <Layout class="left">
-        <AppLeftSide :collapseLeftSideBar="collapseLeftSideBar" :collapsedWidth="siderCollapsedWidth" class="bottomLeft" v-on:triggerCollapse="leftSiderToggleCollapse"></AppLeftSide>
+        <AppLeftSide ref="appLeftSide" :collapseLeftSideBar="collapseLeftSideBar" :collapsedWidth="siderCollapsedWidth" class="bottomLeft" v-on:siderCollapseTriggerClicked="siderCollapseTriggerClicked"></AppLeftSide>
       </Layout>
 
       <Layout class="right">
-        <AppHeader v-on:LeftSiderToggleCollapse="leftSiderToggleCollapse" class="header-bar" :headerStyle="computeRighttHeaderStyle" hasI18N></AppHeader>
+        <AppHeader ref="appHeader" v-on:toggleSiderCollapse="externalToggleSider" class="header-bar" :headerStyle="computeRighttHeaderStyle" hasI18N></AppHeader>
         <Content :style="{padding: '10px', background: '#fff', minHeight: '0px'}" class="bottomRight">
             <router-view/>
           </Content>
@@ -31,36 +31,28 @@ export default {
     return {
       collapseLeftSideBar: false,
       renderLongLogo: true,
-      // if we have submenu, width is 68, if no submenu, width can be 58
       siderCollapsedWidth: 78,
       darkHeader: {
         background: '#242D3A',
-        'justify-content': 'flex-end',
-        display: 'flex'
-        // color: '#ffffff',
-        // 'text-align': 'right'
+        'padding-left': '0px'
       },
       lightHeader: {
         background: '#ffffff',
-        'justify-content': 'flex-end',
-        display: 'flex',
-        'align-items': 'center'
-        // color: '#242D3A',
-        // 'text-align': 'right'
+        'padding-left': '0px'
       }
     }
   },
   methods: {
-    leftSiderToggleCollapse () {
-      console.log('left side toggle collapse')
-      if (this.collapseLeftSideBar === false) {
-        this.collapseLeftSideBar = true
-        this.renderLongLogo = 'false'
-      } else {
-        this.collapseLeftSideBar = false
-        this.renderLongLogo = 'true'
-      }
-      console.log('Show left side bar:' + this.collapseLeftSideBar)
+    siderCollapseTriggerClicked (payload) {
+      // console.log('sider trigger collapsed, isCollapsed: ' + payload)
+      // built in sider trigger click, hence menu had been collapsed,
+      // now we need to update the state of the external toggle button located in header
+      this.$refs.appHeader.siderCollapsedByOthers(payload)
+    },
+    externalToggleSider () {
+      // console.log('external trigger sider collapse')
+      // toggle collapse sider from header, now we need to call sider to toggle its own collapse state
+      this.$refs.appLeftSide.manualToggleCollapse()
     }
   },
   computed: {
@@ -126,6 +118,10 @@ html, body {
     /* display: flex; */
 }
 .header-bar {
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  /* flex-direction: row; */
   box-shadow: 0 1px 1px rgba(0,0,0,.1);
   height: 55px;
   /* border: 1px solid rgb(223, 223, 223); */

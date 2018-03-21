@@ -1,8 +1,5 @@
 <template>
   <div>
-    <Breadcrumb style="text-align:left">
-      <BreadcrumbItem to="/datatable">DataTable</BreadcrumbItem>
-    </Breadcrumb>
     <ButtonGroup style="margin-bottom:1px">
       <Button type="primary" icon="refresh">Refresh</Button>
       <Button type="primary" icon="search">Search</Button>

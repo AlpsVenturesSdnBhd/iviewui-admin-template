@@ -1,7 +1,7 @@
 <template>
   <div style="text-align: left;background: #ffffff;">
     <BrandingHeader v-bind:showLongLogo="!isCollapsed" class="header-bar"></BrandingHeader>
-    <Sider ref="side1" collapsible :collapsed-width="collapsedWidth" v-model="isCollapsed" breakpoint="sm" v-on:input="handleCollapseTrigger" class="sider-style" width="250">
+    <Sider ref="side1" collapsible :collapsed-width="collapsedWidth" v-model="isCollapsed" breakpoint="sm" v-on:input="handleSiderCollapseTriggerClicked" class="sider-style" width="250">
       <Menu :active-name="activeMenuName" theme="light" width="auto" :class="menuitemClasses">
         <div v-for="menu in menus" :key="menu.name">
           <MenuGroup v-if="menu.groupName" :title="menu.groupName" class="menu-group">
@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     menuitemClasses () {
-      console.log('Get menu item classes')
+      // console.log('Get menu item classes')
       return [
         'menu-item',
         this.isCollapsed ? 'collapsed-menu' : ''
@@ -70,15 +70,19 @@ export default {
     }
   },
   methods: {
-    handleCollapseTrigger () {
-      console.log('handleCollapseTrigger')
-      this.$emit('triggerCollapse', this.isCollapsed)
+    handleSiderCollapseTriggerClicked () {
+      this.$emit('siderCollapseTriggerClicked', this.isCollapsed)
     },
     menuItemClicked (menu) {
       console.log('Menu item clicked: ' + menu)
       if (menu.url) {
         this.$router.push(menu.url)
       }
+    },
+    manualToggleCollapse () {
+      // console.log('Manual toggle collapse, current state: ' + this.isCollapsed)
+      this.$refs.side1.toggleCollapse()
+      // console.log('Manual toggle collapse, current state: ' + this.isCollapsed)
     }
   }
 }

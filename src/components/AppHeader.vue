@@ -1,9 +1,12 @@
 <template>
   <!-- <div> -->
     <Header :style="headerStyle" width="100%">
-      <!-- <Icon @click.native="collapsedSider" :class="rotateIcon" type="navicon-round" size="24"></Icon> -->
+      <Icon @click.native="collapsedSider" :class="rotateIcon" type="navicon-round" size="24"></Icon>
+      <Breadcrumb style="margin-right: auto">
+        <BreadcrumbItem :to="breadcrumbTo">{{breadcrumbText}}</BreadcrumbItem>
+      </Breadcrumb>
       <Avatar icon="person"/>
-      <Dropdown v-if="hasI18N" trigger="click" style="margin-left:20px" v-on:on-click="languageSelected">
+      <Dropdown v-if="hasI18N" trigger="click" style="margin-left:20px;" v-on:on-click="languageSelected">
         <a href="javascript:void(0)">
             {{selectedLanguage}}
             <Icon type="arrow-down-b"></Icon>
@@ -47,10 +50,16 @@ export default {
         'menu-icon',
         this.isCollapsed ? 'rotate-icon' : ''
       ]
+    },
+    breadcrumbTo () {
+      return 'datatable'
+    },
+    breadcrumbText () {
+      return '/Datatable'
     }
   },
   created: function () {
-    console.log('Header created')
+    // console.log('Header created')
     if (!this.selectedLanguage || this.selectedLanguage === '') {
       if (this.availableLanguages.length > 0) {
         this.selectedLanguage = this.availableLanguages[0]
@@ -60,7 +69,12 @@ export default {
   methods: {
     collapsedSider () {
       this.isCollapsed = !this.isCollapsed
-      this.$emit('LeftSiderToggleCollapse')
+      this.$emit('toggleSiderCollapse')
+    },
+    siderCollapsedByOthers (payload) {
+      // console.log('Sider collapse toggled by other outside of header, state: ' + payload)
+      // console.log('typeof payload' + typeof payload)
+      this.isCollapsed = payload
     },
     languageSelected (event) {
       console.log('Language selected:' + event)
@@ -73,7 +87,7 @@ export default {
 </script>
 <style scoped>
 .menu-icon{
-  margin: 20px 20px 0;
+  margin: 0px 15px;
   transition: all .3s;
 }
 .rotate-icon{
