@@ -80,6 +80,18 @@
         </a>
       </li>
     </ul>
+
+    <h2>Components</h2>
+    <ul>
+      <li>
+        <a
+          href="https://www.iviewui.com"
+          target="_blank"
+        >
+          iviewui
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
