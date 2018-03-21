@@ -4,7 +4,7 @@
 
       <!-- Left column -->
       <Layout class="left">
-        <AppLeftSide ref="appLeftSide" :collapseLeftSideBar="collapseLeftSideBar" :collapsedWidth="siderCollapsedWidth" class="bottomLeft" v-on:siderCollapseTriggerClicked="siderCollapseTriggerClicked"></AppLeftSide>
+        <AppLeftSide ref="appLeftSide" :collapsedWidth="siderCollapsedWidth" class="bottomLeft" v-on:siderCollapseTriggerClicked="siderCollapseTriggerClicked"></AppLeftSide>
       </Layout>
 
       <Layout class="right">
@@ -29,8 +29,6 @@ export default {
   },
   data () {
     return {
-      collapseLeftSideBar: false,
-      renderLongLogo: true,
       siderCollapsedWidth: 78,
       darkHeader: {
         background: '#242D3A',

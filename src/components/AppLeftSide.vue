@@ -37,7 +37,6 @@ import BrandingHeader from './BrandingHeader'
 export default {
   name: 'AppLeftSide',
   props: [
-    'collapseLeftSideBar',
     'collapsedWidth'
   ],
   components: {
