@@ -2,7 +2,7 @@
   <!-- <div> -->
     <Header :style="headerStyle" width="100%">
       <Icon @click.native="collapsedSider" :class="rotateIcon" type="navicon-round" size="24"></Icon>
-      <Breadcrumb style="margin-right: auto">
+      <Breadcrumb style="margin-right: auto; color:">
         <BreadcrumbItem :to="breadcrumbTo">{{breadcrumbText}}</BreadcrumbItem>
       </Breadcrumb>
       <Avatar icon="person"/>
@@ -52,10 +52,10 @@ export default {
       ]
     },
     breadcrumbTo () {
-      return 'datatable'
+      return this.$route.path
     },
     breadcrumbText () {
-      return '/Datatable'
+      return this.$route.fullPath
     }
   },
   created: function () {
