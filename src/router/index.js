@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import DataTable from '@/components/DataTable'
+import DataTableExample from '@/views/DataTableExample'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import '../styles/my-theme.less'
@@ -18,9 +18,9 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/datatable',
-      name: 'datatable',
-      component: DataTable
+      path: '/datatableexample',
+      name: 'DataTable Example',
+      component: DataTableExample
     }
   ]
 })

@@ -6,8 +6,8 @@ export default {
       icon: 'closed-captioning'
     },
     {
-      name: 'DataTable',
-      url: '/datatable',
+      name: 'DataTable Example',
+      url: '/datatableexample',
       icon: 'grid'
     },
     {

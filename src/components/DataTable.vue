@@ -1,36 +1,92 @@
 <template>
   <div>
-    <ButtonGroup style="margin-bottom:1px">
-      <Button type="primary" icon="refresh">Refresh</Button>
-      <Button type="primary" icon="search">Search</Button>
-      <!-- <Button type="primary" icon="ios-copy">Select All</Button> -->
-      <Button type="primary" icon="plus">Add</Button>
-      <Button type="primary" icon="ios-trash-outline">Remove</Button>
-      <Button type="primary" icon="ios-upload-outline">Export</Button>
-      <Button type="primary" icon="settings">Settings</Button>
+    <ButtonGroup v-show="showToolbarButtons">
+      <Button type="primary" icon="refresh" v-if="showRefreshButton">Refresh</Button>
+      <Button type="primary" icon="search" v-if="showSearchButton">Search</Button>
+      <Button type="primary" icon="plus" v-if="showAddButton">Add</Button>
+      <Button type="primary" icon="ios-trash-outline" v-if="showRemoveButton">Remove</Button>
+      <Button type="primary" icon="ios-upload-outline" v-if="showExportButton">Export</Button>
+      <Button type="primary" icon="settings" v-if="showSettingsButton">Settings</Button>
     </ButtonGroup>
-    <Table height="600" size="small" :columns="getColumns" :data="getRowsData" highlight-row border></Table>
-    <Page :total="100" show-total show-sizer show-elevator></Page>
+    <Table :height="getTableMaxHeight" size="small" :columns="tableColumns" :data="tableRowsData" highlight-row border class="table"></Table>
+    <Page :total="getTotalRows" show-total show-sizer show-elevator></Page>
   </div>
 </template>
 <script>
 export default {
   name: 'DataTable',
+  props: {
+    showToolbarButtons: {
+      type: Boolean,
+      default: true
+    },
+    toolbarButtonsHorizontalAlignment: {
+      type: String,
+      default: 'center'
+    },
+    showRefreshButton: {
+      type: Boolean,
+      default: true
+    },
+    showSearchButton: {
+      type: Boolean,
+      default: true
+    },
+    showAddButton: {
+      type: Boolean,
+      default: true
+    },
+    showRemoveButton: {
+      type: Boolean,
+      default: true
+    },
+    showExportButton: {
+      type: Boolean,
+      default: true
+    },
+    showSettingsButton: {
+      type: Boolean,
+      default: true
+    },
+    tableMaxHeight: {
+      type: String,
+      default: '0'
+    },
+    tableColumns: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
+    tableRowsData: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
+    tableTotalRows: {
+      type: Number,
+      default: 0
+    }
+  },
   data () {
     return {
     }
   },
-  created: function () {
-    console.log('Data table created')
-    this.$store.dispatch('dataTableStore/fetchRowsData')
-  },
   computed: {
-    getColumns () {
-      return this.$store.getters['dataTableStore/getHeaders']
+    getTableMaxHeight () {
+      return Number.parseInt(this.tableMaxHeight)
     },
-    getRowsData () {
-      return this.$store.getters['dataTableStore/getRowsData']
+    getTotalRows () {
+      return Number.parseInt(this.tableTotalRows)
     }
   }
 }
 </script>
+
+<style scoped>
+.table {
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+</style>

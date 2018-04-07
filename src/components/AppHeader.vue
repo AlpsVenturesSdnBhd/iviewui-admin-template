@@ -25,8 +25,13 @@ export default {
   name: 'AppHeader',
   props: {
     headerStyle: {
-      type: String,
-      default: ''
+      type: Object,
+      default: function () {
+        return {
+          background: '#ffffff',
+          'padding-left': '0px'
+        }
+      }
     },
     hasI18N: {
       type: Boolean,
